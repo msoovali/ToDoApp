@@ -1,0 +1,118 @@
+@page
+@model WebApp.Pages.TodoList
+
+@{
+    ViewData["Title"] = "Todo";
+}
+
+<h1>Welcome back @Model.MyUser.UserName</h1>
+
+<form method="get" class="form-inline">
+    <div class="form-group">
+        <label class="control-label">
+            Search TODOs:<p></p>
+            <input type="hidden" name="id" value="@Model.MyUser.UserId"/>
+            <input name="search" value="@Model.Search" asp-route-id="@Model.MyUser.UserId" class="form-control"/>
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="search" class="btn btn-default"/>
+    </div>
+</form>
+<p>
+    <a asp-page="NewTodo" asp-route-id="@Model.MyUser.UserId">Create New Todo</a> | 
+    <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId">Clear sorting</a>
+    @*<a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-isDone="1" asp-route-search="@if(@Model.Search != null){Model.Search}" asp-route-order="@if(Model.Order != null){@Model.Order}">Show only undone todos</a>*@
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Head line
+                <br/>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="1" asp-route-search="@Model.Search">∧</a>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="2" asp-route-search="@Model.Search">v</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todos[0].Description)
+                <br/>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="3" asp-route-search="@Model.Search">∧</a>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="4" asp-route-search="@Model.Search">v</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todos[0].Created)
+                <br/>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="5" asp-route-search="@Model.Search">∧</a>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="6" asp-route-search="@Model.Search">v</a>
+            </th>
+            <th>
+                Due date
+                <br/>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="7" asp-route-search="@Model.Search">∧</a>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="8" asp-route-search="@Model.Search">v</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todos[0].Done)
+                <br/>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="9" asp-route-search="@Model.Search">∧</a>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="10" asp-route-search="@Model.Search">v</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todos[0].Priority)
+                <br/>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="11" asp-route-search="@Model.Search">∧</a>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="12" asp-route-search="@Model.Search">v</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todos[0].PriorityNo)
+                <br/>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="13" asp-route-search="@Model.Search">∧</a>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="14" asp-route-search="@Model.Search">v</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todos[0].Category)
+                <br/>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="15" asp-route-search="@Model.Search">∧</a>
+                <a asp-page="TodoList" asp-route-id="@Model.MyUser.UserId" asp-route-order="16" asp-route-search="@Model.Search">v</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Todos) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeadLine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                <a asp-page="SetDone" asp-route-userId="@Model.MyUser.UserId" asp-route-id="@item.TodoId">
+                    <input asp-for="@item.Done" value="@item.Done"/>
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriorityNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                <a asp-page="EditTodo" asp-route-id="@item.TodoId">Edit</a> |
+                <a asp-page="DeleteTodo" asp-route-todoId="@item.TodoId" asp-route-userId="@Model.MyUser.UserId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

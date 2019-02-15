@@ -1,0 +1,73 @@
+@page
+@using Domain
+@model WebApp.Pages_Todos.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Todo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Todo.HeadLine" class="control-label"></label>
+                <input asp-for="Todo.HeadLine" class="form-control" />
+                <span asp-validation-for="Todo.HeadLine" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Todo.Description" class="control-label"></label>
+                <input asp-for="Todo.Description" class="form-control" />
+                <span asp-validation-for="Todo.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Todo.Created" class="control-label"></label>
+                <input asp-for="Todo.Created" class="form-control" />
+                <span asp-validation-for="Todo.Created" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Todo.DueDate" class="control-label"></label>
+                <input asp-for="Todo.DueDate" class="form-control" />
+                <span asp-validation-for="Todo.DueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Todo.Done" /> @Html.DisplayNameFor(model => model.Todo.Done)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Todo.Priority" class="control-label"></label>
+                <select asp-for="Todo.Priority" asp-items="Html.GetEnumSelectList<Priority>()" class="form-control"></select>
+                <span asp-validation-for="Todo.Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Todo.PriorityNo" class="control-label"></label>
+                <input asp-for="Todo.PriorityNo" class="form-control" />
+                <span asp-validation-for="Todo.PriorityNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Todo.UserId" class="control-label"></label>
+                <select asp-for="Todo.UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Todo.CategoryId" class="control-label"></label>
+                <select asp-for="Todo.CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

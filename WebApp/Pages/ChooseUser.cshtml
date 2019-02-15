@@ -1,0 +1,46 @@
+@page
+@model WebApp.Pages.ChooseUser
+
+@{
+    ViewData["Title"] = "Choose user";
+}
+
+<h1>Choose user</h1>
+
+<p>
+    <a asp-page="CreateUser">Create New</a>
+</p>
+<form method="get" class="form-inline">
+    <div class="form-group">
+        <label class="control-label">
+            Search user:<p></p>
+            <input name="search" value="@Model.Search" class="form-control"/>
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Search" class="btn btn-default"/>
+    </div>
+</form>
+<p></p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            User's name
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.User) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                <a asp-page="TodoList" asp-route-id="@item.UserId">Choose</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,84 @@
+@page
+@model WebApp.Pages_Todos.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Todo[0].HeadLine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todo[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todo[0].Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todo[0].DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todo[0].Done)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todo[0].Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todo[0].PriorityNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todo[0].User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todo[0].Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Todo) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeadLine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Done)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriorityNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.TodoId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.TodoId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.TodoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

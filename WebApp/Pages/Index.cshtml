@@ -1,0 +1,34 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>Enter Your user to continue</h1>
+<p>
+    <a asp-page="CreateUser">Create New User</a>
+</p>
+<form method="post">
+    <div class="index_container">
+        <div class="row justify-content-around">
+            <div class="form-group col-md-6">
+                <label asp-for="User.UserName">Your username</label>
+                <input asp-for="User.UserName" class="form-control" placeholder="Enter your username"/>
+                <span asp-validation-for="User.UserName"></span>
+                <p style="color: red">@Model.Message</p>
+            </div>
+            <div class="form-group col-md-4" style="margin-top: 2em">
+                <input type="submit" value="Continue" class="btn btn-primary"/>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <a asp-page="ChooseUser">Choose from list of users</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
